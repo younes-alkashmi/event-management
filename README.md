@@ -66,3 +66,31 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+# Instructions for Importing the Collection
+<ol>
+    <li> Open Postman.</li>
+    <li> Click on the Import button in the top left corner.</li>
+    <li> Select Raw Text or File (if saved as a .json file).</li>
+    <li> Paste the JSON above or upload the file.</li>
+    <li> Click Import.</li>
+</ol>
+
+# Variables
+<ul>
+    <li> Replace http://your-api-url/api with your actual API base URL.</li>
+    <li>Use Postman environment variables like {{token}}, {{admin_token}}, and {{basic_token}} to store and use the tokens obtained from the login response.</li>
+</ul>
+
+# Testing the Endpoints
+<ul>
+    <li> Register User: Register a new user.</li>
+    <li> Login User: Log in to get a token.</li>
+    <li> Logout User: Use the token to log out.</li>
+    <li> Create Category: Only accessible to admin users.</li>
+    <li> Get All Categories: Retrieve all categories.</li>
+    <li> Create Event: Create an event (admin only).</li>
+    <li> Get All Events: Retrieve all events (admin/manager only).</li>
+    <li> Purchase Tickets: Purchase tickets for a specific event (basic users).</li>
+    <li> Share Tickets: Share tickets with other users (basic users).</li>
+</ul>

@@ -9,11 +9,23 @@ class Ticket extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'event_id',
+        'user_id',
+        'price',
+        'quantity',
+    ];
+
     public function user() {
         return $this->belongsTo(User::class);
     }
     
     public function event() {
         return $this->belongsTo(Event::class);
+    }
+
+    public function transfers()
+    {
+        return $this->hasMany(TicketTransfer::class);
     }
 }

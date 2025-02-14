@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('description');
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->dateTime('date');
+            $table->integer('max_tickets');
             $table->timestamps();
         });
     }

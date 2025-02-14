@@ -1,0 +1,226 @@
+{
+    "info": {
+        "_postman_id": "12345678-1234-5678-1234-567812345678",
+        "name": "Event Management API",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Authentication",
+            "item": [
+                {
+                    "name": "Register User",
+                    "request": {
+                        "url": "http://127.0.0.1:8000/api/register",
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\": \"John Doe\", \"email\": \"john@example.com\", \"password\": \"password123\", \"password_confirmation\": \"password123\"}"
+                        }
+                    }
+                },
+                {
+                    "name": "Login User",
+                    "request": {
+                        "url": "http://127.0.0.1:8000/api/login",
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"email\": \"john@example.com\", \"password\": \"password123\"}"
+                        }
+                    }
+                },
+                {
+                    "name": "Logout User",
+                    "request": {
+                        "url": "http://127.0.0.1:8000/api/logout",
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Categories",
+            "item": [
+                {
+                    "name": "Create Category",
+                    "request": {
+                        "url": "http://127.0.0.1:8000/api/categories",
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\": \"Concerts\"}"
+                        }
+                    }
+                },
+                {
+                    "name": "Get All Categories",
+                    "request": {
+                        "url": "http://127.0.0.1:8000/api/categories",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Events",
+            "item": [
+                {
+                    "name": "Create Event",
+                    "request": {
+                        "url": "http://127.0.0.1:8000/api/events",
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\": \"Music Festival\", \"description\": \"A great music festival\", \"category_id\": 1, \"date\": \"2023-12-31T20:00:00\", \"max_tickets\": 1000}"
+                        }
+                    }
+                },
+                {
+                    "name": "Get All Events",
+                    "request": {
+                        "url": "http://127.0.0.1:8000/api/events",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Tickets",
+            "item": [
+                {
+                    "name": "Purchase Tickets",
+                    "request": {
+                        "url": "http://127.0.0.1:8000/api/events/{eventId}/tickets",
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"user_id\": 1, \"price\": 49.99, \"quantity\": 2}"
+                        }
+                    }
+                },
+                {
+                    "name": "Share Tickets",
+                    "request": {
+                        "url": "http://127.0.0.1:8000/api/tickets/{ticketId}/share",
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"user_ids\": [2, 3]}"
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
