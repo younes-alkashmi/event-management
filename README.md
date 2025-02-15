@@ -90,8 +90,8 @@ Follow these steps to import the Postman collection for testing the API:
 
 2. **Import Collection**:
    - Click on the **Import** button located in the top left corner.
-   - In the Import dialog, choose the **Raw text** or **File** option, depending on whether you have the JSON saved as a file or as text.
-   - Paste or upload the JSON collection provided in this project.
+   - In the Import dialog, choose the **File** option.
+   - upload the JSON collection named **test.collection.json** which is provided in this project.
 
 3. **Set Environment Variables**:
    - Create a new environment in Postman and add a variable named `token`. This variable will be used to store the authentication token after logging in.
