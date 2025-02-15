@@ -7,6 +7,7 @@ use App\Models\Event;
 use App\Models\TicketTransfer;
 use App\Jobs\TransferTicket;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class TicketController extends Controller
 {
@@ -17,25 +18,22 @@ class TicketController extends Controller
 
     public function store(Request $request, $eventId) {
         $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'price' => 'required|numeric',
             'quantity' => 'required|integer|min:1',
         ]);
 
         $event = Event::findOrFail($eventId);
-        $totalTicketsPurchased = Ticket::where('user_id', $validated['user_id'])
-            ->where('event_id', $eventId)
+        $totalTicketsPurchased = Ticket::where('event_id', $eventId)
             ->sum('quantity');
 
-        // Check if enough tickets are available
         if ($totalTicketsPurchased + $validated['quantity'] > $event->max_tickets) {
             return response()->json(['error' => 'Not enough tickets available'], 400);
         }
 
+        $fullPrice = $event->price * $validated['quantity'];
         $ticket = Ticket::create([
             'event_id' => $eventId,
-            'user_id' => $validated['user_id'],
-            'price' => $validated['price'],
+            'user_id' => auth()->id(),
+            'full_price' => $fullPrice,
             'quantity' => $validated['quantity'],
         ]);
 
@@ -49,10 +47,16 @@ class TicketController extends Controller
             'user_ids.*' => 'exists:users,id',
         ]);
 
-        $ticket = Ticket::findOrFail($ticketId);
-        $user = $request->user();
+        $currentUserId = auth()->id();
+        if (in_array($currentUserId, $validated['user_ids'])) {
+            throw ValidationException::withMessages([
+                'user_ids' => ['The selected user IDs must not include the current user.'],
+            ]);
+        }
 
-        $totalTicketsPurchased = Ticket::where('user_id', $user->id)
+        $ticket = Ticket::findOrFail($ticketId);
+
+        $totalTicketsPurchased = Ticket::where('user_id', $currentUserId)
             ->where('event_id', $ticket->event_id)
             ->sum('quantity');
 
@@ -75,19 +79,12 @@ class TicketController extends Controller
         return response()->json($ticket);
     }
 
-    public function update(Request $request, $eventId, $ticketId) {
-        $ticket = Ticket::where('event_id', $eventId)->findOrFail($ticketId);
-        $validated = $request->validate([
-            'price' => 'sometimes|required|numeric',
-        ]);
-
-        $ticket->update($validated);
-
-        return response()->json($ticket);
-    }
-
     public function destroy($eventId, $ticketId) {
-        $ticket = Ticket::where('event_id', $eventId)->findOrFail($ticketId);
+        $userId = auth()->id();
+        $ticket = Ticket::where('event_id', $eventId)
+            ->where('user_id', $userId)
+            ->findOrFail($ticketId);
+
         $ticket->delete();
 
         return response()->json(['message' => 'Ticket deleted successfully'], 204);

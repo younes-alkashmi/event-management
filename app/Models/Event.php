@@ -13,6 +13,7 @@ class Event extends Model
         'name',
         'description',
         'category_id',
+        'price',
         'date',
         'max_tickets',
     ];

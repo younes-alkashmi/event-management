@@ -20,11 +20,16 @@ class EventController extends Controller
         }
     
         if ($request->has('status')) {
-            if ($request->status === 'upcoming') {
-                $query->where('date', '>', now());
-            } elseif ($request->status === 'past') {
-                $query->where('date', '<=', now());
-            }
+            $currentDate = now();        
+            $query->when($request->status === 'upcoming', function ($q) use ($currentDate) {
+                return $q->where('date', '>', $currentDate);
+            })
+            ->when($request->status === 'past', function ($q) use ($currentDate) {
+                return $q->where('date', '<=', $currentDate);
+            })
+            ->when($request->status === 'ongoing', function ($q) use ($currentDate) {
+                return $q->whereDate('date', '=', $currentDate->toDateString());
+            });
         }
     
         return response()->json($query->get());
@@ -36,6 +41,7 @@ class EventController extends Controller
             'description' => 'required|string',
             'category_id' => 'required|exists:categories,id',
             'date' => 'required|date',
+            'price' => 'required|numeric',
             'max_tickets' => 'required|integer|min:1',
         ]);
 
@@ -46,6 +52,7 @@ class EventController extends Controller
 
     public function show($id) {
         $event = Event::findOrFail($id);
+
         return response()->json($event);
     }
 
@@ -56,6 +63,7 @@ class EventController extends Controller
             'description' => 'sometimes|required|string',
             'category_id' => 'sometimes|required|exists:categories,id',
             'date' => 'sometimes|required|date',
+            'price' => 'sometimes|numeric',
             'max_tickets' => 'sometimes|integer|min:1',
         ]);
 

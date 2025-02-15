@@ -19,6 +19,7 @@ class EventSeeder extends Seeder
             'category_id' => 1,
             'date' => '2025-06-15 18:00:00',
             'max_tickets' => 100,
+            'price' => 45.00
         ]);
 
         Event::create([
@@ -27,6 +28,7 @@ class EventSeeder extends Seeder
             'category_id' => 2,
             'date' => '2025-05-10 07:00:00',
             'max_tickets' => 80,
+            'price' => 19.00
         ]);
     }
 }

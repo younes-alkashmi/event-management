@@ -26,7 +26,19 @@
                         "body": {
                             "mode": "raw",
                             "raw": "{\"name\": \"John Doe\", \"email\": \"john@example.com\", \"password\": \"password123\", \"password_confirmation\": \"password123\"}"
-                        }
+                        },
+                        "event": [{
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test(\"Token is saved\", function() {",
+                                    "    var jsonData = pm.response.json();",
+                                    "    pm.environment.set(\"token\", jsonData.token);",
+                                    "});"
+                                ]
+                            }
+                        }]
                     }
                 },
                 {
@@ -47,7 +59,19 @@
                         "body": {
                             "mode": "raw",
                             "raw": "{\"email\": \"john@example.com\", \"password\": \"password123\"}"
-                        }
+                        },
+                        "event": [{
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test(\"Token is saved\", function() {",
+                                    "    var jsonData = pm.response.json();",
+                                    "    pm.environment.set(\"token\", jsonData.token);",
+                                    "});"
+                                ]
+                            }
+                        }]
                     }
                 },
                 {
@@ -117,6 +141,65 @@
                             }
                         ]
                     }
+                },
+                {
+                    "name": "Get Category by ID",
+                    "request": {
+                        "url": "http://127.0.0.1:8000/api/categories/{categoryId}",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Update Category",
+                    "request": {
+                        "url": "http://127.0.0.1:8000/api/categories/{categoryId}",
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\": \"Updated Concerts\"}"
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Category",
+                    "request": {
+                        "url": "http://127.0.0.1:8000/api/categories/{categoryId}",
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ]
+                    }
                 }
             ]
         },
@@ -144,7 +227,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"name\": \"Music Festival\", \"description\": \"A great music festival\", \"category_id\": 1, \"date\": \"2023-12-31T20:00:00\", \"max_tickets\": 1000}"
+                            "raw": "{\"name\": \"Music Festival\", \"price\": 49.99, \"description\": \"A great music festival\", \"category_id\": 1, \"date\": \"2023-12-31T20:00:00\", \"max_tickets\": 1000}"
                         }
                     }
                 },
@@ -153,6 +236,65 @@
                     "request": {
                         "url": "http://127.0.0.1:8000/api/events",
                         "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Get Event by ID",
+                    "request": {
+                        "url": "http://127.0.0.1:8000/api/events/{eventId}",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Update Event",
+                    "request": {
+                        "url": "http://127.0.0.1:8000/api/events/{eventId}",
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"name\": \"Updated Music Festival\", \"price\": 29.00, \"description\": \"An updated description\", \"category_id\": 1, \"date\": \"2023-12-31T20:00:00\", \"max_tickets\": 1200}"
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Event",
+                    "request": {
+                        "url": "http://127.0.0.1:8000/api/events/{eventId}",
+                        "method": "DELETE",
                         "header": [
                             {
                                 "key": "Authorization",
@@ -191,7 +333,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"user_id\": 1, \"price\": 49.99, \"quantity\": 2}"
+                            "raw": "{\"quantity\": 2}"
                         }
                     }
                 },
@@ -218,6 +360,23 @@
                             "mode": "raw",
                             "raw": "{\"user_ids\": [2, 3]}"
                         }
+                    }
+                },
+                {
+                    "name": "Delete Ticket",
+                    "request": {
+                        "url": "http://127.0.0.1:8000/api/tickets/{ticketId}",
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ]
                     }
                 }
             ]

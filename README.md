@@ -1,96 +1,136 @@
-# event-management
-=======
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Event Management API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Project Description
 
-## About Laravel
+The **Event Management API** is a robust RESTful API designed to manage events, categories, and ticketing systems. It provides endpoints for user authentication, event creation, management of categories, and ticket purchasing, making it ideal for applications focused on event organization and management.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **User Authentication**: Register, log in, and log out users.
+- **Category Management**: Create, read, update, and delete event categories.
+- **Event Management**: Create, list, update, and delete events.
+- **Ticketing System**: Purchase, share, and manage tickets for events.
+- **Secure API**: Token-based authentication for secure access to endpoints.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Setting Up the Laravel API Environment
 
-## Learning Laravel
+Follow these steps to set up and run the Event Management API locally:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Prerequisites
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- PHP >= 8.0
+- Composer
+- Laravel >= 10
+- MySQL
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Installation Steps
 
-## Laravel Sponsors
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/younes-alkashmi/event-management.git
+   cd event-management
+   ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+2. **Install Dependencies**:
+   Run the following command to install all required PHP packages:
+   ```bash
+   composer install
+   ```
 
-### Premium Partners
+3. **Set Up Environment Variables**:
+   - Copy the `.env.example` file to create your `.env` file:
+     ```bash
+     cp .env.example .env
+     ```
+   - Open the `.env` file and update the database connection details:
+     ```plaintext
+     DB_CONNECTION=mysql
+     DB_HOST=127.0.0.1
+     DB_PORT=3306
+     DB_DATABASE=your_database_name
+     DB_USERNAME=your_username
+     DB_PASSWORD=your_password
+     ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+4. **Generate Application Key**:
+   ```bash
+   php artisan key:generate
+   ```
 
-## Contributing
+5. **Run Migrations**:
+   To set up the database schema, run:
+   ```bash
+   php artisan migrate
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+6. **Run Seeders (Optional)**:
+   We have seeders to populate your database with initial data, run:
+   ```bash
+   php artisan db:seed
+   ```
 
-## Code of Conduct
+7. **Run Queue Workers (If Applicable)**:
+   We have queues for handling some tasks, the queue worker should be running:
+   ```bash
+   php artisan queue:work
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+8. **Run the API Server**:
+   Start the local development server:
+   ```bash
+   php artisan serve
+   ```
+   Your API will be accessible at `http://localhost:8000`.
 
-## Security Vulnerabilities
+## Importing the Postman Collection
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Follow these steps to import the Postman collection for testing the API:
 
-## License
+1. **Open Postman**: Launch the Postman application on your computer.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+2. **Import Collection**:
+   - Click on the **Import** button located in the top left corner.
+   - In the Import dialog, choose the **Raw text** or **File** option, depending on whether you have the JSON saved as a file or as text.
+   - Paste or upload the JSON collection provided in this project.
 
-# Instructions for Importing the Collection
-<ol>
-    <li> Open Postman.</li>
-    <li> Click on the Import button in the top left corner.</li>
-    <li> Select Raw Text or File (if saved as a .json file).</li>
-    <li> Paste the JSON above or upload the file.</li>
-    <li> Click Import.</li>
-</ol>
+3. **Set Environment Variables**:
+   - Create a new environment in Postman and add a variable named `token`. This variable will be used to store the authentication token after logging in.
+   - You can add token in globals in postman enviroment so it can be sent automatically with every request.
 
-# Variables
-<ul>
-    <li> Replace http://your-api-url/api with your actual API base URL.</li>
-    <li>Use Postman environment variables like {{token}}, {{admin_token}}, and {{basic_token}} to store and use the tokens obtained from the login response.</li>
-</ul>
+4. **Testing the API**:
+   - Start by registering a new user using the **Register User** endpoint.
+   - Log in with the registered user credentials to obtain a token.
+   - Use the token for subsequent requests by including it in the **Authorization** header (e.g., `Bearer {{token}}`).
 
-# Testing the Endpoints
-<ul>
-    <li> Register User: Register a new user.</li>
-    <li> Login User: Log in to get a token.</li>
-    <li> Logout User: Use the token to log out.</li>
-    <li> Create Category: Only accessible to admin users.</li>
-    <li> Get All Categories: Retrieve all categories.</li>
-    <li> Create Event: Create an event (admin only).</li>
-    <li> Get All Events: Retrieve all events (admin/manager only).</li>
-    <li> Purchase Tickets: Purchase tickets for a specific event (basic users).</li>
-    <li> Share Tickets: Share tickets with other users (basic users).</li>
-</ul>
+5. **Explore Endpoints**: 
+   - Utilize the collection to interact with different API endpoints, testing functionalities like creating categories, events, and purchasing tickets.
+
+## Login Credentials for Testing
+
+To test as an admin or manager, you can use the following predefined accounts:
+
+- **Admin Account**:
+  - **Email**: admin@example.com
+  - **Password**: admin123
+
+- **Manager Account**:
+  - **Email**: manager@example.com
+  - **Password**: manager123
+
+## Testing the Endpoints
+
+Here are the key endpoints you can test:
+
+- **Register User**: Register a new user.
+- **Login User**: Log in to get a token.
+- **Logout User**: Use the token to log out.
+- **Create Category**: Only accessible to admin users.
+- **Get All Categories**: Retrieve all categories.
+- **Create Event**: Create an event (admin/manager only).
+- **Get All Events**: Retrieve all events (admin/manager/basic users).
+- **Purchase Tickets**: Purchase tickets for a specific event (basic users).
+- **Share Tickets**: Share tickets with other users (basic users).
+
+## Conclusion
+
+Use this API to build sophisticated event management applications with seamless user interaction and robust backend support.
