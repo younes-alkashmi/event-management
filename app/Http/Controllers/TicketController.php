@@ -13,6 +13,7 @@ class TicketController extends Controller
 {
     public function index($eventId) {
         $tickets = Ticket::where('event_id', $eventId)->get();
+
         return response()->json($tickets);
     }
 
@@ -87,6 +88,6 @@ class TicketController extends Controller
 
         $ticket->delete();
 
-        return response()->json(['message' => 'Ticket deleted successfully'], 204);
+        return response()->json(['message' => 'Ticket deleted successfully'], status: 200);
     }
 }

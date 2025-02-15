@@ -75,6 +75,72 @@
                     }
                 },
                 {
+                    "name": "Login Admin",
+                    "request": {
+                        "url": "http://127.0.0.1:8000/api/login",
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"email\": \"admin@example.com\", \"password\": \"admin123\"}"
+                        },
+                        "event": [{
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test(\"Token is saved\", function() {",
+                                    "    var jsonData = pm.response.json();",
+                                    "    pm.environment.set(\"token\", jsonData.token);",
+                                    "});"
+                                ]
+                            }
+                        }]
+                    }
+                },
+                {
+                    "name": "Login Manager",
+                    "request": {
+                        "url": "http://127.0.0.1:8000/api/login",
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"email\": \"manager@example.com\", \"password\": \"manager123\"}"
+                        },
+                        "event": [{
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "pm.test(\"Token is saved\", function() {",
+                                    "    var jsonData = pm.response.json();",
+                                    "    pm.environment.set(\"token\", jsonData.token);",
+                                    "});"
+                                ]
+                            }
+                        }]
+                    }
+                },
+                {
                     "name": "Logout User",
                     "request": {
                         "url": "http://127.0.0.1:8000/api/logout",
@@ -360,6 +426,48 @@
                             "mode": "raw",
                             "raw": "{\"user_ids\": [2, 3]}"
                         }
+                    }
+                },
+                {
+                    "name": "Get all tickets for specific Event",
+                    "request": {
+                        "url": "http://127.0.0.1:8000/api/events/{eventId}/tickets",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Get a Ticket",
+                    "request": {
+                        "url": "http://127.0.0.1:8000/api/events/{eventId}/tickets/{ticketId}",
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ]
                     }
                 },
                 {

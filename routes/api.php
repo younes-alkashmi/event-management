@@ -10,13 +10,22 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
-    Route::apiResource('categories', CategoryController::class);
+    Route::post('/categories', [CategoryController::class, 'store']);
+    Route::put('/categories/{id}', [CategoryController::class, 'update']);
+    Route::delete('/categories{id}', [CategoryController::class, 'destroy']);
+
 });
 
 Route::middleware(['auth:sanctum', 'role:admin,manager'])->group(function () {
+    Route::get('categories', [CategoryController::class, 'index']);
+    Route::get('categories/{id}', [CategoryController::class, 'show']);
+
     Route::post('/events', [EventController::class, 'store']);
     Route::put('/events/{id}', [EventController::class, 'update']);
     Route::delete('/events/{id}', [EventController::class, 'destroy']);
+
+    Route::get('/events/{id}/tickets', [TicketController::class, 'index']);
+
 });
 
 Route::middleware(['auth:sanctum', 'role:basic'])->group(function () {

@@ -122,12 +122,15 @@ To test as an admin or manager, you can use the following predefined accounts:
 Here are the key endpoints you can test:
 
 - **Register User**: Register a new user.
-- **Login User**: Log in to get a token.
+- **Login User**: Log in to get a token(can be used after registering).
+- **Login Admin**: Log in to get an admin token (can be used after seeding db).
+- **Login Manager**: Log in to get a manager token(can be used after seeding db).
 - **Logout User**: Use the token to log out.
-- **Create Category**: Only accessible to admin users.
+- **Create Category**: Only accessible to (admin/manager) users.
 - **Get All Categories**: Retrieve all categories.
 - **Create Event**: Create an event (admin/manager only).
 - **Get All Events**: Retrieve all events (admin/manager/basic users).
+- **Get All Tickets for specific Event**: Retrieve all tickets for an event (admin/manager only).
 - **Purchase Tickets**: Purchase tickets for a specific event (basic users).
 - **Share Tickets**: Share tickets with other users (basic users).
 

@@ -76,6 +76,6 @@ class EventController extends Controller
         $event = Event::findOrFail($id);
         $event->delete();
 
-        return response()->json(['message' => 'Event deleted successfully'], 204);
+        return response()->json(['message' => 'Event deleted successfully'], 200);
     }
 }
