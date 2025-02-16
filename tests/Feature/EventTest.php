@@ -24,6 +24,7 @@ class EventTest extends TestCase
             'description' => 'A great music festival',
             'category_id' => $category->id,
             'date' => '2023-12-31T20:00:00',
+            'price' => 27.33,
             'max_tickets' => 1000,
         ]);
 
